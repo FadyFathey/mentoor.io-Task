@@ -3,7 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { addTask, updateTask } from "../../RTK/taskSlice";
 import { RootState } from "../../RTK/store";
 
-const AddTodo = ({ editIndex, setEditIndex }) => {
+interface AddTodoProps {
+  editIndex: number | null;
+  setEditIndex: React.Dispatch<React.SetStateAction<number | null>>;
+}
+
+const AddTodo: React.FC<AddTodoProps> = ({ editIndex, setEditIndex }) => {
   const [inputValue, setInputValue] = useState<string>("");
   const dispatch = useDispatch();
   const tasks = useSelector((state: RootState) => state.tasks.tasks);
@@ -11,8 +16,8 @@ const AddTodo = ({ editIndex, setEditIndex }) => {
 
   useEffect(() => {
     if (editIndex !== null) {
-      setInputValue(tasks[editIndex].text); // Set the input to the task being edited
-      inputRef.current?.focus(); // Focus on the input field
+      setInputValue(tasks[editIndex].text);
+      inputRef.current?.focus();
     }
   }, [editIndex, tasks]);
 
@@ -24,12 +29,12 @@ const AddTodo = ({ editIndex, setEditIndex }) => {
     e.preventDefault();
     if (inputValue.trim() !== "") {
       if (editIndex !== null) {
-        dispatch(updateTask({ index: editIndex, newText: inputValue })); // Update task in the store and localStorage
-        setEditIndex(null); // Reset the edit index after updating
+        dispatch(updateTask({ index: editIndex, newText: inputValue }));
+        setEditIndex(null);
       } else {
-        dispatch(addTask(inputValue)); // Add task to the store and localStorage
+        dispatch(addTask(inputValue));
       }
-      setInputValue(""); // Reset the input field after adding or updating
+      setInputValue("");
     }
   };
 
@@ -55,3 +60,4 @@ const AddTodo = ({ editIndex, setEditIndex }) => {
 };
 
 export default AddTodo;
+

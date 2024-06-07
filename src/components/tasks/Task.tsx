@@ -6,7 +6,11 @@ import undone from "../../assets/undone.svg";
 import doneIcon from "../../assets/done.svg";
 import deleteIcon from "../../assets/delete.svg";
 
-const Task = ({ onEdit }) => {
+interface TaskProps {
+  onEdit: (index: number) => void;
+}
+
+const Task: React.FC<TaskProps> = ({ onEdit }) => {
   const tasks = useSelector((state: RootState) => state.tasks.tasks);
   const dispatch = useDispatch();
 
@@ -56,3 +60,4 @@ const Task = ({ onEdit }) => {
 };
 
 export default Task;
+
