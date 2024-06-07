@@ -1,13 +1,9 @@
-import ReactDOM from "react-dom";
+import MainLayout from "./layouts/MainLayout";
 import { Provider } from "react-redux";
 import store from "./RTK/store";
-import MainLayout from "./layouts/MainLayout";
-
-ReactDOM.render(
+const App = () => (
   <Provider store={store}>
     <MainLayout />
-  </Provider>,
-  document.getElementById("root")
+  </Provider>
 );
-
-
+export default App;

@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addTask } from "../../RTK/tasksSlice";
+import { addTask } from "../../RTK/taskSlice";
 
 const AddTodo = () => {
   const [inputValue, setInputValue] = useState<string>("");
   const dispatch = useDispatch();
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
