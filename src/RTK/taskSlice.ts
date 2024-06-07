@@ -36,9 +36,16 @@ const taskSlice = createSlice({
                 task.done = !task.done;
                 localStorage.setItem("tasks", JSON.stringify(state.tasks));
             }
+        },
+        updateTask: (state, action: { payload: { index: number, newText: string } }) => {
+            const task = state.tasks[action.payload.index];
+            if (task) {
+                task.text = action.payload.newText;
+                localStorage.setItem("tasks", JSON.stringify(state.tasks));
+            }
         }
     }
 })
 
-export const { addTask, deleteTask, toggleTaskDone } = taskSlice.actions;
+export const { addTask, deleteTask, toggleTaskDone, updateTask } = taskSlice.actions;
 export default taskSlice.reducer;

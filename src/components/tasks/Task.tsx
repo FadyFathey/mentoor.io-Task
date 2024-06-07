@@ -6,7 +6,7 @@ import undone from "../../assets/undone.svg";
 import doneIcon from "../../assets/done.svg";
 import deleteIcon from "../../assets/delete.svg";
 
-const Task = () => {
+const Task = ({ onEdit }) => {
   const tasks = useSelector((state: RootState) => state.tasks.tasks);
   const dispatch = useDispatch();
 
@@ -34,7 +34,10 @@ const Task = () => {
               src={task.done ? doneIcon : undone}
               alt={task.done ? "done" : "undone"}
             />
-            <p className="text-zinc-100 text-sm font-normal leading-tight">
+            <p
+              className="text-zinc-100 text-sm font-normal leading-tight cursor-pointer"
+              onClick={() => onEdit(index)}
+            >
               {task.text}
             </p>
             <img

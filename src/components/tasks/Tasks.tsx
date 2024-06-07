@@ -1,9 +1,10 @@
+import React from "react";
 import Task from "./Task";
 
-const Tasks = () => {
+const Tasks = ({ handleEdit }) => {
   return (
     <div className="flex flex-col justify-start items-center">
-      <Task />
+      <Task onEdit={handleEdit} />
     </div>
   );
 };
