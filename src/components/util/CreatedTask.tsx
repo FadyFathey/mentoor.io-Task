@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../RTK/store";
 
-const CreatedTask = () => {
+const CreatedTask: React.FC = () => {
   const tasks = useSelector((state: RootState) => state.tasks.tasks);
 
   const completedTasks = tasks.filter((task) => task.done).length;

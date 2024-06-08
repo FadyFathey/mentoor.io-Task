@@ -1,7 +1,10 @@
-import React from "react";
 import Task from "./Task";
 
-const Tasks = ({ handleEdit }) => {
+interface TasksProps {
+  handleEdit: (index: number) => void;
+}
+
+const Tasks: React.FC<TasksProps> = ({ handleEdit }) => {
   return (
     <div className="flex flex-col justify-start items-center">
       <Task onEdit={handleEdit} />
