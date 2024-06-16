@@ -1,10 +1,11 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../RTK/store";
+import useCompletedTasksStore from "../../zustand/completedTasksStore";
 
 const CreatedTask: React.FC = () => {
   const tasks = useSelector((state: RootState) => state.tasks.tasks);
+  const completedTasks = useCompletedTasksStore((state) => state.tasks);
 
-  const completedTasks = tasks.filter((task) => task.done).length;
   const totalTasks = tasks.length;
 
   return (
@@ -19,7 +20,7 @@ const CreatedTask: React.FC = () => {
         <div className="flex gap-[8px]">
           <span className="text-indigo-400 text-sm font-bold">Completed</span>
           <span className="w-[70px] h-[19px] px-2 py-0.5 bg-[#333333] rounded-[999px] flex-col justify-center items-center gap-2.5 inline-flex">
-            {completedTasks} of {totalTasks}
+            {completedTasks.length} of {totalTasks}
           </span>
         </div>
       </div>

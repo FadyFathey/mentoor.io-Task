@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import useCompletedTasksStore from "../zustand/completedTasksStore";
 
 interface Task {
     text: string;
@@ -6,17 +7,17 @@ interface Task {
 }
 
 interface TasksState {
-    tasks: Task[]
+    tasks: Task[];
 }
 
 const loadLocalStorageTasks = (): Task[] => {
-    const localStorageTasks = localStorage.getItem('tasks');
+    const localStorageTasks = localStorage.getItem("tasks");
     return localStorageTasks ? JSON.parse(localStorageTasks) : [];
-}
+};
 
 const initialState: TasksState = {
     tasks: loadLocalStorageTasks(),
-}
+};
 
 const taskSlice = createSlice({
     name: "tasks",
@@ -27,6 +28,10 @@ const taskSlice = createSlice({
             localStorage.setItem("tasks", JSON.stringify(state.tasks));
         },
         deleteTask: (state, action: { payload: number }) => {
+            const task = state.tasks[action.payload];
+            if (task.done) {
+                useCompletedTasksStore.getState().removeTask(task.text);
+            }
             state.tasks.splice(action.payload, 1);
             localStorage.setItem("tasks", JSON.stringify(state.tasks));
         },
@@ -34,18 +39,23 @@ const taskSlice = createSlice({
             const task = state.tasks[action.payload];
             if (task) {
                 task.done = !task.done;
+                if (task.done) {
+                    useCompletedTasksStore.getState().addTask(task.text);
+                } else {
+                    useCompletedTasksStore.getState().removeTask(task.text);
+                }
                 localStorage.setItem("tasks", JSON.stringify(state.tasks));
             }
         },
-        updateTask: (state, action: { payload: { index: number, newText: string } }) => {
+        updateTask: (state, action: { payload: { index: number; newText: string } }) => {
             const task = state.tasks[action.payload.index];
             if (task) {
                 task.text = action.payload.newText;
                 localStorage.setItem("tasks", JSON.stringify(state.tasks));
             }
-        }
-    }
-})
+        },
+    },
+});
 
 export const { addTask, deleteTask, toggleTaskDone, updateTask } = taskSlice.actions;
 export default taskSlice.reducer;
