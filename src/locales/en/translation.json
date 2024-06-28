@@ -1,0 +1,11 @@
+{
+  "to": "to",
+  "do": "do",
+  "create": "Create",
+  "update": "Update",
+  "addTaskPlaceholder": "Add a new task",
+  "Created tasks": "Created tasks",
+  "Completed": "Completed",
+  "of": "of",
+  "No tasks available": "No tasks available"
+}

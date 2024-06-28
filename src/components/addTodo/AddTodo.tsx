@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 import { addTask, updateTask } from "../../RTK/taskSlice";
 import { RootState } from "../../RTK/store";
 
@@ -9,6 +10,7 @@ interface AddTodoProps {
 }
 
 const AddTodo: React.FC<AddTodoProps> = ({ editIndex, setEditIndex }) => {
+  const { t } = useTranslation();
   const [inputValue, setInputValue] = useState<string>("");
   const dispatch = useDispatch();
   const tasks = useSelector((state: RootState) => state.tasks.tasks);
@@ -43,7 +45,7 @@ const AddTodo: React.FC<AddTodoProps> = ({ editIndex, setEditIndex }) => {
       <input
         className="w-[625px] h-[54px] p-4 bg-neutral-800 rounded-lg border border-stone-950 text-zinc-500 text-base font-normal leading-snug"
         type="text"
-        placeholder="Add a new task"
+        placeholder={t("addTaskPlaceholder")}
         value={inputValue}
         onChange={handleInputChange}
         ref={inputRef}
@@ -53,7 +55,7 @@ const AddTodo: React.FC<AddTodoProps> = ({ editIndex, setEditIndex }) => {
         className="w-[103px] h-[52px] p-4 bg-cyan-700 rounded-lg text-zinc-100 text-sm font-bold leading-tight"
         type="submit"
       >
-        {editIndex !== null ? "Update" : "Create"}
+        {editIndex !== null ? t("update") : t("create")}
       </button>
     </div>
   );
