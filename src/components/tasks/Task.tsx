@@ -5,6 +5,7 @@ import { deleteTask, toggleTaskDone } from "../../RTK/taskSlice";
 import undone from "../../assets/undone.svg";
 import doneIcon from "../../assets/done.svg";
 import deleteIcon from "../../assets/delete.svg";
+import { t } from "i18next";
 
 interface TaskProps {
   onEdit: (index: number) => void;
@@ -53,7 +54,7 @@ const Task: React.FC<TaskProps> = ({ onEdit }) => {
           </div>
         ))
       ) : (
-        <p>No tasks available</p>
+        <p>{t("No tasks available")}</p>
       )}
     </div>
   );

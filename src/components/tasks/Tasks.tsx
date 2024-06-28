@@ -14,7 +14,7 @@ const Tasks: React.FC<TasksProps> = ({ handleEdit }) => {
   return (
     <div className="flex flex-col justify-start items-center">
       {tasks.length > 0 ? (
-        tasks.map((task, index) => <Task key={index} onEdit={handleEdit} />)
+        tasks.map((_, index) => <Task key={index} onEdit={handleEdit} />)
       ) : (
         <p>{t("No tasks available")}</p>
       )}
